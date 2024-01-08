@@ -10,3 +10,26 @@ marshmallow
 
 deepaas>=1.3.0
 flaat~=1.1.1
+
+# Libraries to manipulate data
+dask
+xarray
+netcdf4
+
+# Deep learning and machine learning libraries
+#pytorch
+torchvision
+#pytorch-cuda
+tensorboard
+accelerate
+transformers
+huggingface_hub
+
+# Libraries for utilities
+pydantic
+pyyaml
+tqdm
+
+# Types for mypy
+types-requests
+types-pyyaml
