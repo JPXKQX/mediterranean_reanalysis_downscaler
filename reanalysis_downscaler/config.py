@@ -50,10 +50,10 @@ class PredictArgsSchema(Schema):
     )
     
     # an input parameter for prediction
-    arg1 = fields.Integer(
+    arg1 = fields.Str(
         required=False,
-        missing=1,
-        description="Input argument 1 for the prediction"
+        missing="tas",
+        description="Variable to output"
     )
 
 # Input parameters for train() (deepaas>=1.0.0)
@@ -61,10 +61,43 @@ class TrainArgsSchema(Schema):
     class Meta:
         unknown = INCLUDE  # support 'full_paths' parameter
 
-    # available fields are e.g. fields.Integer(), fields.Str(), fields.Boolean()
-    # full list of fields: https://marshmallow.readthedocs.io/en/stable/api_reference.html
-    arg1 = fields.Integer(
+    num_epochs = fields.Integer(
+        required=True,
+        missing=10,
+        description="Number of epochs for training."
+    )
+    batch_size = fields.Integer(
+        required=True,
+        missing=8,
+        description="Number of samples per batch."
+    )
+    num_workers = fields.Integer(
+        required=False,
+        missing=4,
+        description="Number of worker processes for data loading."
+    )
+    gradient_accumulation_steps = fields.Integer(
         required=False,
         missing=1,
-        description="Input argument 1 for training"
+        description="Number of steps for gradient accumulation."
+    )
+    num_samples = fields.Integer(
+        required=False,
+        missing=None,  # Replace with an appropriate default value
+        description="Total number of samples in the dataset."
+    )
+    learning_rate = fields.Float(
+        required=False,
+        missing=0.0005,
+        description="Learning rate for the optimizer."
+    )
+    lr_warmup_steps = fields.Integer(
+        required=False,
+        missing=1000,
+        description="Number of warm-up steps for learning rate."
+    )
+    mixed_precision = fields.String(
+        required=False,
+        missing="fp16",
+        description="Whether to use mixed precision for training."
     )

@@ -11,6 +11,7 @@ import reanalysis_downscaler.config as cfg
 from aiohttp.web import HTTPBadRequest
 
 from functools import wraps
+from reanalysis_downscaler.dataset import make_dataset
 
 ## Authorization
 from flaat import Flaat
@@ -91,13 +92,13 @@ def get_metadata():
         predict_args[key]['type'] = str(val['type'])
 
     meta = {
-        'name': None,
+        'name': "ConvSwin2SR",
         'version': None,
-        'summary': None,
-        'home-page': None,
-        'author': None,
-        'author-email': None,
-        'license': None,
+        'summary': "A ConvSwin2SR transformer for meteorological downscaling.",
+        'home-page': "https://github.com/ECMWFCode4Earth/DeepR",
+        'author': "Mario Santa Cruz,Antonio Perez,Javier Diez",
+        'author-email': "santacruzm@predictia.es",
+        'license': "LICENSE",
         'help-train' : train_args,
         'help-predict' : predict_args
     }
@@ -181,7 +182,7 @@ def get_train_args():
 # Comment this line, if you open training for everybody
 # More info: see https://github.com/indigo-dc/flaat
 ###
-@flaat.login_required() # Allows only authorized people to train
+#@flaat.login_required()
 def train(**kwargs):
     """
     Train network
@@ -190,9 +191,7 @@ def train(**kwargs):
     :return:
     """
 
-    message = { "status": "ok",
-                "training": [],
-              }
+    message = {"status": "ok", "training": []}
 
     # use the schema
     schema = cfg.TrainArgsSchema()
@@ -200,9 +199,27 @@ def train(**kwargs):
     train_args = schema.load(kwargs)
     
     # 1. implement your training here
+    dataset_train, dataset_val, dataset_test = make_dataset.main(data_config)
+    model_cfg = model_config.pop("neural_network")
+
+    model = get_neural_network(
+        **model_cfg,
+        out_channels=dataset_train.output_channels,
+        sample_size=dataset_train.output_shape,
+        input_shape=dataset_train.input_shape,
+        static_covariables=train_config.static_covariables,
+    )
+
+    model = train_nn(
+        train_config,
+        model,
+        dataset_train,
+        dataset_val,
+        data_config.get_plain_dict(),
+    )
+
     # 2. update "message"
-    
-    train_results = { "Error": "No model implemented for training (train())" }
+    train_results = {"Error": "No model implemented for training (train())" }
     message["training"].append(train_results)
 
     return message
