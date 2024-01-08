@@ -1,0 +1,57 @@
+{
+  "architectures": [
+    "ConvSwin2SR"
+  ],
+  "attention_probs_dropout_prob": 0.0,
+  "depths": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+  ],
+  "drop_path_rate": 0.1,
+  "embed_dim": 180,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.0,
+  "image_size": [
+    32,
+    48
+  ],
+  "img_range": 1,
+  "initializer_range": 0.02,
+  "input_shape": [
+    44,
+    60
+  ],
+  "interpolation_method": "bicubic",
+  "layer_norm_eps": 1e-05,
+  "mlp_ratio": 2.0,
+  "model_type": "conv_swin2sr",
+  "num_channels": 1,
+  "num_heads": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6
+  ],
+  "num_high_res_covars": 0,
+  "num_layers": 6,
+  "patch_size": 1,
+  "qkv_bias": true,
+  "real_upscale": 5,
+  "resi_connection": "1conv",
+  "sample_size": [
+    160,
+    240
+  ],
+  "torch_dtype": "float32",
+  "transformers_version": "4.33.1",
+  "upsampler": "pixelshuffle",
+  "upscale": 8,
+  "use_absolute_embeddings": false,
+  "window_size": 5
+}
