@@ -1,4 +1,4 @@
-reanalysis_downscaler
+European Reanalysis Downscaler
 ==============================
 
 [![Build Status](https://jenkins.indigo-datacloud.eu/buildStatus/icon?job=Pipeline-as-code/DEEP-OC-org/reanalysis_downscaler/master)](https://jenkins.indigo-datacloud.eu/job/Pipeline-as-code/job/DEEP-OC-org/job/reanalysis_downscaler/job/master)
@@ -12,7 +12,7 @@ cd reanalysis_downscaler
 pip install -e .
 deepaas-run --listen-ip 0.0.0.0
 ```
-The associated Docker container for this module can be found in https://github.com/jpxkqx/mediterranean_reanalysis_downscaler/DEEP-OC-reanalysis_downscaler.
+The associated Docker container for this module can be found in https://github.com/jpxkqx/DEEP-OC-reanalysis_downscaler.
 
 ## Project structure
 ```
